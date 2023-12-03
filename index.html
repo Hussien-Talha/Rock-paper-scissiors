@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors Game</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #f9e4b7;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            position: relative;
+        }
+        .choice {
+            font-size: 18px;
+            margin-top: 10px;
+            text-align: center;
+        }
+        #result {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rock, Paper, Scissors</h1>
+    
+    <div class="choice" id="userChoice"></div>
+    <div class="choice" id="computerChoice"></div>
+    
+    <button onclick="playGame('rock')">Rock</button>
+    <button onclick="playGame('paper')">Paper</button>
+    <button onclick="playGame('scissors')">Scissors</button>
+
+    <div id="result"></div>
+
+    <script>
+        function playGame(playerChoice) {
+            const choices = ['rock', 'paper', 'scissors'];
+            const computerChoice = choices[Math.floor(Math.random() * 3)];
+            let resultMessage;
+
+            // Display user's choice
+            document.getElementById('userChoice').innerHTML = `You chose: ${playerChoice}`;
+
+            // Display computer's choice
+            document.getElementById('computerChoice').innerHTML = `Computer chose: ${computerChoice}`;
+
+            // Clear previous result
+            document.getElementById('result').innerHTML = '';
+
+            // Determine the winner based on the choices
+            if (playerChoice === computerChoice) {
+                resultMessage = "It's a tie!";
+            } else if (
+                (playerChoice === 'rock' && computerChoice === 'scissors') ||
+                (playerChoice === 'paper' && computerChoice === 'rock') ||
+                (playerChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                resultMessage = "You win!";
+            } else {
+                resultMessage = "Computer wins!";
+            }
+
+            // Display the result after a delay
+            setTimeout(() => {
+                document.getElementById('result').innerHTML = resultMessage;
+            }, 1000);
+
+            // Set a timer for 5 seconds
+            setTimeout(() => {
+                if (!resultMessage) {
+                    document.getElementById('result').innerHTML = "Time's up! You lose!";
+                }
+                
+                // Reset after 3 seconds
+                setTimeout(() => {
+                    document.getElementById('userChoice').innerHTML = '';
+                    document.getElementById('computerChoice').innerHTML = '';
+                    document.getElementById('result').innerHTML = '';
+                }, 3000);
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
